@@ -1,7 +1,7 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 ### tidystm: Extract (tidy) effect from `estimateEffect` in the `stm` package
 
-[![Travis-CI Build Status](https://travis-ci.org/.svg?branch=master)](https://travis-ci.org/)
+[![Travis-CI Build Status](https://travis-ci.org/.svg?branch=master)](https://travis-ci.org/) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mikaelpoul/tidystm?branch=master&svg=true)](https://ci.appveyor.com/project/mikaelpoul/tidystm)
 
 Extracts the effect of a covariate on a set of topics selected by the user. Different effect types available depending on type of covariate. Before running this, the user should run a function to simulate necessary confidence intervals. See estimateEffect of the stm package.
 
@@ -38,19 +38,19 @@ effect <- extract.estimateEffect(prep, "treatment", model = gadarianFit, method 
 
 print(effect)
 #>          method topic covariate covariate.value  estimate  std.error
-#> 1 pointestimate     1 treatment               1 0.2815323 0.02053227
-#> 2 pointestimate     1 treatment               0 0.4436950 0.02060402
-#> 3 pointestimate     2 treatment               1 0.4570565 0.02231340
-#> 4 pointestimate     2 treatment               0 0.2102854 0.02087753
-#> 5 pointestimate     3 treatment               1 0.2617144 0.01916173
-#> 6 pointestimate     3 treatment               0 0.3464319 0.02115404
+#> 1 pointestimate     1 treatment               1 0.2846374 0.01974677
+#> 2 pointestimate     1 treatment               0 0.4419570 0.02324071
+#> 3 pointestimate     2 treatment               1 0.4550771 0.02145325
+#> 4 pointestimate     2 treatment               0 0.2112168 0.02172229
+#> 5 pointestimate     3 treatment               1 0.2609538 0.01880575
+#> 6 pointestimate     3 treatment               0 0.3468121 0.02061666
 #>   ci.level  ci.lower  ci.upper                       label
-#> 1     0.95 0.2389746 0.3193814 Topic 1(Covariate Level: 1)
-#> 2     0.95 0.4033271 0.4835180 Topic 1(Covariate Level: 1)
-#> 3     0.95 0.4127487 0.5004476 Topic 2(Covariate Level: 1)
-#> 4     0.95 0.1692200 0.2498052 Topic 2(Covariate Level: 1)
-#> 5     0.95 0.2254129 0.2992667 Topic 3(Covariate Level: 1)
-#> 6     0.95 0.3051968 0.3875300 Topic 3(Covariate Level: 1)
+#> 1     0.95 0.2455033 0.3228081 Topic 1(Covariate Level: 1)
+#> 2     0.95 0.3968491 0.4867849 Topic 1(Covariate Level: 1)
+#> 3     0.95 0.4119784 0.4965825 Topic 2(Covariate Level: 1)
+#> 4     0.95 0.1700620 0.2533109 Topic 2(Covariate Level: 1)
+#> 5     0.95 0.2241560 0.2978396 Topic 3(Covariate Level: 1)
+#> 6     0.95 0.3074441 0.3870378 Topic 3(Covariate Level: 1)
 ```
 
 ``` r
