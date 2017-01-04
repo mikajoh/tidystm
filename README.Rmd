@@ -64,8 +64,21 @@ You can then use the results however you like. This is especially helpful if you
 ## This time, lets estimate treatment effect as a function of party
 ## id. We can than get an idea of whether the treatment effect vary
 ## for people with different ids.
+processed <- textProcessor(documents = gadarian$open.ended.response,
+                           metadata = gadarian)
+
+out <- prepDocuments(document = processed$documents,
+                     vocab = processed$vocab,
+                     meta = processed$meta)
+
+stm_fit <- stm(documents = out$documents,
+               vocab = out$vocab,
+               K = 3,
+               prevalence = ~ treatment + pid_rep + treatment:pid_rep,
+               data = gadarian)
+
 prep <- estimateEffect(formula = 1:3 ~ treatment + pid_rep + treatment:pid_rep,
-                       stmobj = gadarianFit,
+                       stmobj = stm_fit,
                        metadata = gadarian)
 
 
