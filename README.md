@@ -38,19 +38,19 @@ effect <- extract.estimateEffect(prep, "treatment", model = gadarianFit, method 
 
 print(effect)
 #>          method topic covariate covariate.value  estimate  std.error
-#> 1 pointestimate     1 treatment               1 0.2799562 0.02154427
-#> 2 pointestimate     1 treatment               0 0.4411912 0.02091986
-#> 3 pointestimate     2 treatment               1 0.4574562 0.02281224
-#> 4 pointestimate     2 treatment               0 0.2141744 0.02218771
-#> 5 pointestimate     3 treatment               1 0.2629705 0.02156781
-#> 6 pointestimate     3 treatment               0 0.3456699 0.02075912
+#> 1 pointestimate     1 treatment               1 0.2815323 0.02053227
+#> 2 pointestimate     1 treatment               0 0.4436950 0.02060402
+#> 3 pointestimate     2 treatment               1 0.4570565 0.02231340
+#> 4 pointestimate     2 treatment               0 0.2102854 0.02087753
+#> 5 pointestimate     3 treatment               1 0.2617144 0.01916173
+#> 6 pointestimate     3 treatment               0 0.3464319 0.02115404
 #>   ci.level  ci.lower  ci.upper                       label
-#> 1     0.95 0.2376846 0.3219419 Topic 1(Covariate Level: 1)
-#> 2     0.95 0.3999327 0.4824369 Topic 1(Covariate Level: 1)
-#> 3     0.95 0.4128875 0.5020247 Topic 2(Covariate Level: 1)
-#> 4     0.95 0.1733466 0.2584113 Topic 2(Covariate Level: 1)
-#> 5     0.95 0.2227190 0.3069685 Topic 3(Covariate Level: 1)
-#> 6     0.95 0.3058800 0.3861812 Topic 3(Covariate Level: 1)
+#> 1     0.95 0.2389746 0.3193814 Topic 1(Covariate Level: 1)
+#> 2     0.95 0.4033271 0.4835180 Topic 1(Covariate Level: 1)
+#> 3     0.95 0.4127487 0.5004476 Topic 2(Covariate Level: 1)
+#> 4     0.95 0.1692200 0.2498052 Topic 2(Covariate Level: 1)
+#> 5     0.95 0.2254129 0.2992667 Topic 3(Covariate Level: 1)
+#> 6     0.95 0.3051968 0.3875300 Topic 3(Covariate Level: 1)
 ```
 
 ``` r
@@ -117,3 +117,5 @@ ggplot(effect, aes(x = covariate.value, y = estimate,
 ```
 
 ![](README-unnamed-chunk-6-1.png)
+
+Much better :)

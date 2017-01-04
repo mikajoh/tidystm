@@ -116,3 +116,6 @@ ggplot(effect, aes(x = covariate.value, y = estimate,
 
 
 ```
+
+Much better :)
+
