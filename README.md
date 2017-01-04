@@ -1,9 +1,9 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-### tidystm: Extract (tidy) effect from `estimateEffect` in the `stm` package
+### tidystm: Extract (tidy) effect from `estimateEffect` in the [stm package](http://www.structuraltopicmodel.com/)
 
 [![Travis-CI Build Status](https://travis-ci.org/.svg?branch=master)](https://travis-ci.org/) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mikaelpoul/tidystm?branch=master&svg=true)](https://ci.appveyor.com/project/mikaelpoul/tidystm)
 
-Extracts the effect of a covariate on a set of topics selected by the user. Different effect types available depending on type of covariate. Before running this, the user should run a function to simulate necessary confidence intervals. See estimateEffect of the stm package.
+Extracts the effect of a covariate on a set of topics selected by the user. Different effect types available depending on type of covariate. Before running this, the user should run a function to simulate necessary confidence intervals. See `estimateEffect` of the [stm package](http://www.structuraltopicmodel.com/).
 
 #### Install
 
@@ -38,20 +38,22 @@ effect <- extract.estimateEffect(prep, "treatment", model = gadarianFit, method 
 
 print(effect)
 #>          method topic covariate covariate.value  estimate  std.error
-#> 1 pointestimate     1 treatment               1 0.2846374 0.01974677
-#> 2 pointestimate     1 treatment               0 0.4419570 0.02324071
-#> 3 pointestimate     2 treatment               1 0.4550771 0.02145325
-#> 4 pointestimate     2 treatment               0 0.2112168 0.02172229
-#> 5 pointestimate     3 treatment               1 0.2609538 0.01880575
-#> 6 pointestimate     3 treatment               0 0.3468121 0.02061666
+#> 1 pointestimate     1 treatment               1 0.2778767 0.02292685
+#> 2 pointestimate     1 treatment               0 0.4411198 0.02215475
+#> 3 pointestimate     2 treatment               1 0.4619813 0.02438323
+#> 4 pointestimate     2 treatment               0 0.2101236 0.02243251
+#> 5 pointestimate     3 treatment               1 0.2596650 0.01931604
+#> 6 pointestimate     3 treatment               0 0.3496585 0.02176095
 #>   ci.level  ci.lower  ci.upper                       label
-#> 1     0.95 0.2455033 0.3228081 Topic 1(Covariate Level: 1)
-#> 2     0.95 0.3968491 0.4867849 Topic 1(Covariate Level: 1)
-#> 3     0.95 0.4119784 0.4965825 Topic 2(Covariate Level: 1)
-#> 4     0.95 0.1700620 0.2533109 Topic 2(Covariate Level: 1)
-#> 5     0.95 0.2241560 0.2978396 Topic 3(Covariate Level: 1)
-#> 6     0.95 0.3074441 0.3870378 Topic 3(Covariate Level: 1)
+#> 1     0.95 0.2344831 0.3227297 Topic 1(Covariate Level: 1)
+#> 2     0.95 0.3977314 0.4828091 Topic 1(Covariate Level: 1)
+#> 3     0.95 0.4137318 0.5080871 Topic 2(Covariate Level: 1)
+#> 4     0.95 0.1653362 0.2532897 Topic 2(Covariate Level: 1)
+#> 5     0.95 0.2222134 0.2975350 Topic 3(Covariate Level: 1)
+#> 6     0.95 0.3045596 0.3908082 Topic 3(Covariate Level: 1)
 ```
+
+You can then use the results however you like. This is especially helpful if you want to plot it for yourself when the included plot functions doesnt cut it. For example:
 
 ``` r
 
