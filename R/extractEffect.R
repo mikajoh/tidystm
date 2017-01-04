@@ -87,6 +87,17 @@ extract.estimateEffect <- function(x, covariate, model = NULL,
 
   uvals <- cthis$cdata[[covariate]]
   offset <- (1 - ci.level) / 2
+  labels <- stm:::createLabels(labeltype = labeltype,
+                               covariate = covariate,
+                               method = method,
+                               cdata = cthis$cdata,
+                               cov.value1 = cov.value1,
+                               cov.value2 = cov.value2,
+                               model = model,
+                               n = n,
+                               topics = topics,
+                               custom.labels = custom.labels,
+                               frexw = frexw)
 
   out <- lapply(topics, function(i) {
 
@@ -103,7 +114,8 @@ extract.estimateEffect <- function(x, covariate, model = NULL,
                               std.error = sd(diff),
                               ci.level = ci.level,
                               ci.lower = quantile(diff, offset),
-                              ci.upper = quantile(diff, 1 - offset))
+                              ci.upper = quantile(diff, 1 - offset),
+                              label = labels[i])
 
     } else {
 
@@ -115,8 +127,14 @@ extract.estimateEffect <- function(x, covariate, model = NULL,
                               std.error = apply(sims, 1, sd),
                               ci.level = ci.level,
                               ci.lower = apply(sims, 1, quantile, probs = offset),
-                              ci.upper = apply(sims, 1, quantile, probs = (1 - offset)))
+                              ci.upper = apply(sims, 1, quantile, probs = (1 - offset)),
+                              label = labels[i])
 
+    }
+
+    if (!is.null(moderator)) {
+      out_inner$moderator <- moderator
+      out_inner$moderator.value <- moderator.value
     }
 
     rownames(out_inner) <- NULL
@@ -124,18 +142,6 @@ extract.estimateEffect <- function(x, covariate, model = NULL,
 
   })
   out <- do.call("rbind", out)
-
-  out$label <- stm:::createLabels(labeltype = labeltype,
-                            covariate = covariate,
-                            method = method,
-                            cdata = cthis$cdata,
-                            cov.value1 = cov.value1,
-                            cov.value2 = cov.value2,
-                            model = model,
-                            n = n,
-                            topics = topics,
-                            custom.labels = custom.labels,
-                            frexw = frexw)
 
   return(out)
 }

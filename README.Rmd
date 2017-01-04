@@ -53,3 +53,66 @@ effect <- extract.estimateEffect(prep, "treatment", model = gadarianFit, method 
 
 print(effect)
 ```
+
+
+``` {r}
+
+## This time, let the treatment effect vary (linearly) by pid_rep.
+prep <- estimateEffect(formula = 1:3 ~ treatment + pid_rep + treatment:pid_rep,
+                       stmobj = gadarianFit,
+                       metadata = gadarian)
+
+
+## And lets plot it using the included plotting function.
+op <- par(mfrow = c(1, 2))
+for (i in c(0, 1)) {
+  plot.estimateEffect(x = prep,
+                      covariate = "pid_rep",
+                      method = "continuous",
+                      model = gadarianFit,
+                      labeltype = "frex",
+                      moderator = "treatment",
+                      moderator.value = i)
+}
+par(op)
+
+
+```
+
+Not very easy to see what going on. Instead, lets extract the estimates in a tidy format so that we can plot it ourselves
+
+```{r}
+## Lets extract the estimates in a tidy format so that we can plot it
+## ourselves. We can now use lapply instead to first run it with
+## moderator.value 0 and then with moderator.value 1, and then bind
+## the two data frames together.
+effect <- lapply(c(0, 1), function(i) {
+  extract.estimateEffect(x = prep,
+                         covariate = "pid_rep",
+                         method = "continuous",
+                         model = gadarianFit,
+                         labeltype = "frex",
+                         n = 4,
+                         moderator = "treatment",
+                         moderator.value = i)
+})
+effect <- do.call("rbind", effect)
+
+## And, for example, plot it with ggplot2 and facet by topic instead.
+library(ggplot2)
+
+ggplot(effect, aes(x = covariate.value, y = estimate,
+                   ymin = ci.lower, ymax = ci.upper,
+                   group = moderator.value,
+                   fill = factor(moderator.value))) +
+  facet_wrap(~ label, nrow = 2) +
+  geom_ribbon(alpha = .5) +
+  geom_line() +
+  scale_x_continuous(labels = function(x) ifelse(x == 1, "1\nREP", ifelse(x == 0, "0\nDEM", x))) +
+  labs(x = "Party ID",
+       y = "Expected Topic Proportion",
+       fill = "Treated (0/1)") +
+  theme(legend.position = "bottom")
+
+
+```
