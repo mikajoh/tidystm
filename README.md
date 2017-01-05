@@ -11,6 +11,7 @@ You need the `devtools` package in order to install `tidystm`. You can install i
 
 ``` r
 if (!require(devtools)) install.packages("devtools")
+#> Loading required package: devtools
 ```
 
 You can then install `tidystm` by running:
@@ -26,6 +27,7 @@ The package, for now, includes one function: `extract.estimateEffect()`. You run
 ``` r
 ## Load the packages and set seed
 library(stm)
+#> stm v1.1.3 (2016-01-14) successfully loaded. See ?stm for help.
 library(tidystm)
 
 set.seed(2016)
@@ -38,22 +40,17 @@ data(gadarian)
 prep <- estimateEffect(1:3 ~ treatment, gadarianFit, gadarian)
 effect <- extract.estimateEffect(prep, "treatment", model = gadarianFit, method = "pointestimate")
 
-print(effect)
-#>          method topic covariate covariate.value  estimate  std.error
-#> 1 pointestimate     1 treatment               1 0.2804612 0.02060757
-#> 2 pointestimate     1 treatment               0 0.4439191 0.02369964
-#> 3 pointestimate     2 treatment               1 0.4569280 0.02298090
-#> 4 pointestimate     2 treatment               0 0.2099581 0.02143746
-#> 5 pointestimate     3 treatment               1 0.2629073 0.01962893
-#> 6 pointestimate     3 treatment               0 0.3459851 0.02258847
-#>   ci.level  ci.lower  ci.upper                       label
-#> 1     0.95 0.2402753 0.3201613 Topic 1(Covariate Level: 1)
-#> 2     0.95 0.3987170 0.4904847 Topic 1(Covariate Level: 1)
-#> 3     0.95 0.4121723 0.5011797 Topic 2(Covariate Level: 1)
-#> 4     0.95 0.1670091 0.2519835 Topic 2(Covariate Level: 1)
-#> 5     0.95 0.2244965 0.3043431 Topic 3(Covariate Level: 1)
-#> 6     0.95 0.3024164 0.3903011 Topic 3(Covariate Level: 1)
+knitr::kable(effect)
 ```
+
+| method        |  topic| covariate |  covariate.value|   estimate|  std.error|  ci.level|   ci.lower|   ci.upper| label                       |
+|:--------------|------:|:----------|----------------:|----------:|----------:|---------:|----------:|----------:|:----------------------------|
+| pointestimate |      1| treatment |                1|  0.2804612|  0.0206076|      0.95|  0.2402753|  0.3201613| Topic 1(Covariate Level: 1) |
+| pointestimate |      1| treatment |                0|  0.4439191|  0.0236996|      0.95|  0.3987170|  0.4904847| Topic 1(Covariate Level: 1) |
+| pointestimate |      2| treatment |                1|  0.4569280|  0.0229809|      0.95|  0.4121723|  0.5011797| Topic 2(Covariate Level: 1) |
+| pointestimate |      2| treatment |                0|  0.2099581|  0.0214375|      0.95|  0.1670091|  0.2519835| Topic 2(Covariate Level: 1) |
+| pointestimate |      3| treatment |                1|  0.2629073|  0.0196289|      0.95|  0.2244965|  0.3043431| Topic 3(Covariate Level: 1) |
+| pointestimate |      3| treatment |                0|  0.3459851|  0.0225885|      0.95|  0.3024164|  0.3903011| Topic 3(Covariate Level: 1) |
 
 You can then use the results however you like. This is especially helpful if you want to plot it for yourself when the included plot functions doesnt cut it. For example:
 
@@ -62,26 +59,9 @@ You can then use the results however you like. This is especially helpful if you
 ## This time, lets estimate treatment effect as a function of party
 ## id. We can than get an idea of whether the treatment effect vary
 ## for people with different ids.
-processed <- textProcessor(documents = gadarian$open.ended.response,
-                           metadata = gadarian,
-                           verbose = FALSE)
-
-out <- prepDocuments(document = processed$documents,
-                     vocab = processed$vocab,
-                     meta = processed$meta,
-                     verbose = FALSE)
-
-stm_fit <- stm(documents = out$documents,
-               vocab = out$vocab,
-               K = 3,
-               prevalence = ~ treatment + pid_rep + treatment:pid_rep,
-               data = gadarian,
-               verbose = FALSE)
-
 prep <- estimateEffect(formula = 1:3 ~ treatment + pid_rep + treatment:pid_rep,
-                       stmobj = stm_fit,
+                       stmobj = gadarianFit,
                        metadata = gadarian)
-
 
 ## And lets plot it using the included plotting function.
 op <- par(mfrow = c(1, 2))
@@ -91,6 +71,7 @@ for (i in c(0, 1)) {
                       method = "continuous",
                       model = gadarianFit,
                       labeltype = "frex",
+                      n = 4,
                       moderator = "treatment",
                       moderator.value = i)
 }
