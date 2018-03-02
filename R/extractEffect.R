@@ -95,7 +95,7 @@ extract.estimateEffect <- function(x, covariate, model = NULL,
                                cov.value2 = cov.value2,
                                model = model,
                                n = n,
-                               topics = topics,
+                               topics = x$topics,
                                custom.labels = custom.labels,
                                frexw = frexw)
 
