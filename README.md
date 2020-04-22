@@ -17,7 +17,7 @@ if (!require(devtools)) install.packages("devtools")
 You can then install `tidystm` by running:
 
 ``` r
-devtools::install_github("mikaelpoul/tidystm", dependencies = TRUE)
+devtools::install_github("mikajoh/tidystm", dependencies = TRUE)
 ```
 
 #### Use
