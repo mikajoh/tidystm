@@ -95,13 +95,13 @@ extract.estimateEffect <- function(x, covariate, model = NULL,
                                cov.value2 = cov.value2,
                                model = model,
                                n = n,
-                               topics = topics,
+                               topics = x$topics,
                                custom.labels = custom.labels,
                                frexw = frexw)
 
   out <- lapply(topics, function(i) {
 
-    sims <- cthis$cmatrix %*% t(simbetas[[which(x$topics == topics[i])]])
+    sims <- cthis$cmatrix %*% t(simbetas[[which(x$topics == i)]])
 
     if (method == "difference") {
 
@@ -115,7 +115,7 @@ extract.estimateEffect <- function(x, covariate, model = NULL,
                               ci.level = ci.level,
                               ci.lower = quantile(diff, offset),
                               ci.upper = quantile(diff, 1 - offset),
-                              label = labels[i])
+                              label = labels[which(x$topics == i)])
 
     } else {
 
@@ -128,7 +128,7 @@ extract.estimateEffect <- function(x, covariate, model = NULL,
                               ci.level = ci.level,
                               ci.lower = apply(sims, 1, quantile, probs = offset),
                               ci.upper = apply(sims, 1, quantile, probs = (1 - offset)),
-                              label = labels[i])
+                              label = labels[which(x$topics == i)])
 
     }
 
